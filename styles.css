@@ -344,7 +344,7 @@ a:hover {
     --image: './res/painting-art-svgrepo-com.svg';
 }
 
-.project_list > div:hover .type_list > * {
+.project_list > div:active .type_list > * {
     animation-play-state: running;
 }
 @keyframes box_open_type {
