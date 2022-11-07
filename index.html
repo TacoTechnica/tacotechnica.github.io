@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        <link rel="stylesheet" href="./styles.css">
+        <script src="./res/jquery-3.6.1.min.js"></script>
+        <script src="./index.js"></script>
+        <title>Adris Jautakas</title>
+    </head>
+
+    <body>
+        <div id="overlay"></div>
+        <!--
+        <div id="overlay">
+            <div id="overlay_card">
+                <div class="header"> <!-- Title gets copied here -- > </div>
+                <div class="type_list">
+                    <!-- Types get copied here -- >
+                </div>
+            </div>
+        -->
+        </div>
+        <div id="root">
+            <!-- TODO: First determine whether we even want this -->
+            <!--
+                <div id="navbar">
+                    <! -- TODO: A list of things on the left side -- >
+                    <! -- TODO: Hamburger's on smaller displays/mobile -- >
+                </div>
+            -->
+            <div id="opener_page">
+                <div class="opener hover-box">
+                    <div class="header">
+                        Hello, I'm Adris Jautakas
+                        <!-- TODO: Discord, Twitch, Keanu Chungus, Nira Twitter Contacts -->
+                    </div>
+                    <div class="subheader">
+                        I like to make things that people can enjoy.
+                    </div>
+                    <div>
+                        This includes:
+                        <div class="brag_list">
+                            <div>Video Games</div>
+                            <div>Tools and Communities</div>
+                            <div>Silly Music</div>
+                            <div>And more...</div>
+                        </div>
+                    </div>
+                    <div class="resume_container">
+                        Alternatively, <a href="google.com">Here's my resume</a>
+                    </div>    
+                </div>
+                <div class="opener_empty_buffer"></div>
+            </div>
+            <div id="projects_page">
+                <div class="project_list">
+                    <div>
+                        <div class="header">3D Momentum Platformer</div>
+                        <div class="media_note video" src="./res/nira gameplay.mp4" type="video/mp4"></div>
+                        <div class="type_list">
+                            <div class="game"></div>
+                            <div class="art"></div>
+                        </div>
+                        <div class="description">
+                            <div>I'm working on a video game.</div>
+                            <div>It's a 3D Momentum Based Platformer.</div>
+                            <div>Here's some work I've done and things I've learned:
+                                <ul>
+                                    <li>Created Completely Custom Physics for the Character Controller (no rigidbodies, collider casting is all you need)</li>
+                                    <li>Learned how to write Shaders and run Compute Shaders on the GPU to parallelize computations</li>
+                                    <li>Learning and applying optimizations for GPU shaders and rendering, like manual draw batching & occlusion culling</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="header">Rhythm Game Online Songs + Leaderboards Mod</div>
+                        <!-- TODO: Some screenshots of the UI, but with a black background so it doesn't show game footage-->
+                        <div class="media_note image" src="./res/custombeatmaps ui.png"></div>
+                        <div class="type_list">
+                            <div class="game"></div>
+                            <div class="tool"></div>
+                        </div>
+                        <div class="description">
+                            <div>I made a mod and server that lets people play, upload and download custom beatmaps for the rhythm game UNBEATABLE [white label]</div>
+                            <div>This includes a user registration system, a high score leaderboard, and an uploading system on discord with a simple approval/rating system to encourage feedback.</div>
+                            <div>The entire system has been running since April 2022. It requires little maintenence on my behalf to function, creators upload and verify their maps using the system.</div>
+                            <div>This mod has formed a community of 70+ members who make and share custom maps for the game. I am incredibly happy to see my work help so many fans of the game!</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="header">Video Engagement Chrome Extension</div>
+                        <div class="media_note image" src="./res/engageme ui.png"></div>
+                        <div class="type_list">
+                            <div class="hackathon"></div>
+                            <div class="tool"></div>
+                        </div>
+                        <div class="description">
+                            <div>I worked with a team of 4 to create Engage Me: A chrome extension that tracks user engagement and watch time on YouTube videos and lecture recordings (this was before YouTube implemented this feature themselves!)</div>
+                            <div>I designed the front end facing component that would track which intervals the user watched (AKA didn't skip), combine them together, and send them to the server</div>
+                            <div>Our project won 4th place at the MHacks 2019 hackathon</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="header">Fully Autonomous Minecraft Speedrun</div>
+                        <div class="media_note video" src="./res/alto beating game.mp4" type="video/mp4"></div>
+                        <div class="type_list">
+                            <div class="game"></div>
+                            <div class="tool"></div>
+                        </div>
+                        <div class="description">
+                            <div>I programmed the first bot ever to successfully beat the game Minecraft on its own in a Random Seed world</div>
+                            <div>With the help of a pathfinding library, the bot dynamically collects resources and accomplishes increasingly complicated tasks by reacting to the state of the world</div>
+                            <div class="media_note image" src="./res/alto full tree.jpeg"></div>
+                            <div>The community around this mod has over 750 members and the project has been <a href="https://youtu.be/2V5-NC1eqWI?t=126">featured in a video with 10 million views</a></div>
+                            <div>On May 25th, 2021 the bot was streamed beating Minecraft, becoming the first fully autonomous random seed speedrun in the game's history</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="header">Random Music Shenanigans</div>
+                        <div class="type_list">
+                            <div class="art"></div>
+                        </div>
+                        <div class="description">
+                            <div>I sometimes make goofy music, some of it is viewable on <a href="https://soundcloud.com/tacotechnica">Soundcloud</a>.</div>
+                            <div>Am currently working on brainstorming music to Nira: Across Skies.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
