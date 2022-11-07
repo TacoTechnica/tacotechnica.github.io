@@ -54,6 +54,8 @@ window.addEventListener('load', () => {
     for (const elemDom of $(".project_list > div")) {
         const elem = $(elemDom)
         elem.on('click', () => {
+            if (selectedCard == elemDom)
+                return
             if (!!selectedCard) {
                 deselectCard()
             } else {
