@@ -7,7 +7,10 @@
     --shadow-color-light: white;
     --box-offs: 4px 4px;
 }
-
+html {
+    padding: 0;
+    margin: 0;
+}
 body {
     /* TODO: Default font */
     /* TODO: No margin/tag/none of that */
@@ -15,19 +18,26 @@ body {
     margin: 0;
     padding: 0;
     color: #ecedec;
-    background: var(--background);
     overflow-x: hidden;
 }
 
 /* Root display */
 #root {
     display: flex;
-    margin:1em;
+    padding:1em;
 }
 @media screen and (max-width: 800px) {
     #root {
         flex-direction: column;
     }    
+}
+
+/* Background */
+#background {
+    position:fixed;
+    width:100%;
+    height:100%;
+    background: var(--background);
 }
 
 /* Links */
@@ -100,20 +110,20 @@ a:hover {
 }
 
 
-.hover-box:hover, .project_list > div:hover {
+.hover-box:active, .project_list > div:active {
     animation-play-state: running;
     z-index: 100;
 }
 .hover-box:active, .project_list > div:active  {
     animation-play-state: running;
 }
-.hover-box:hover::before, .project_list > div:hover::before {
+.hover-box:active::before, .project_list > div:active::before {
     animation-play-state: running;
 }
 .hover-box:active::before, .project_list > div:active::before {
     animation-play-state: running;
 }
-.hover-box:hover::after, .project_list > div:hover::after {
+.hover-box:active::after, .project_list > div:active::after {
     animation-play-state: running;
 }
 .hover-box:active::after, .project_list > div:active::after {

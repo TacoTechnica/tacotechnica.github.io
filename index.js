@@ -77,6 +77,7 @@ window.addEventListener('load', () => {
     })
 
     // Generate type list
+
     for (const elemDom of $(".type_list > *")) {
         const elem = $(elemDom)
         const styles = getComputedStyle(elemDom)
@@ -88,6 +89,16 @@ window.addEventListener('load', () => {
             console.warn("Invalid type list elem: ", elemDom, content, image)
         }
     }
+
+    // Back = close current card, for mobile
+    window.addEventListener('popstate', (event) => {
+        if (!!selectedCard) {
+            deselectCard()
+            history.go(1)
+        }
+    });
+    history.pushState({ state: 1 }, '')
+
 
     // Do the fun rotation effect cause why not
 
