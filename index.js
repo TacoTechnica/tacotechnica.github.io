@@ -1,14 +1,14 @@
 console.log("Hello!")
 
 
-const createVideo = (src, type) => {
-    return `<video autoplay loop muted>
-        <source src="${src}" type="${type}">
+const createVideo = (src, type, alt) => {
+    return `<video autoplay loop muted tabindex="-1">
+        <source src="${src}" type="${type}" alt="${alt}">
         This browser doesn't support video... Oops! <a href=${src}>Click here to view it manually.</a>
     </video>`
 }
-const createImage = src => {
-    return `<img src="${src}">`
+const createImage = (src, alt) => {
+    return `<img src="${src}" alt="${alt}">`
 }
 const clamp1 = v => {
     return Math.max(Math.min(v, 1), -1)
@@ -24,9 +24,9 @@ window.addEventListener('load', () => {
         const elem = $(elemDom)
         if (elem.hasClass("video")) {
             console.log("vid")
-            elem.append(createVideo(elem.attr('src'), elem.attr('type')))
+            elem.append(createVideo(elem.attr('src'), elem.attr('type'), elem.attr('alt')))
         } else if (elem.hasClass("image")) {
-            elem.append(createImage(elem.attr('src')))
+            elem.append(createImage(elem.attr('src'), elem.attr('alt')))
         } else {
             console.error("Invalid: ", elemDom)
         }
@@ -62,6 +62,15 @@ window.addEventListener('load', () => {
                 selectCard(elemDom)                
             }
         })
+
+        // Make "tab+enter" selectable
+        elem.on('keypress', (e) => {
+            // enter
+            if(e.key === 'Enter') {
+              elem.trigger('click')
+              elem.addClass('selected')
+            }
+        })
     }
     document.addEventListener('click', evt => {
         if (!selectedCard) {
@@ -78,19 +87,32 @@ window.addEventListener('load', () => {
         deselectCard()
     })
 
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            deselectCard()
+        }
+    })
+
     // Generate type list
 
-    for (const elemDom of $(".type_list > *")) {
-        const elem = $(elemDom)
-        const styles = getComputedStyle(elemDom)
-        const [content, image] = [styles.getPropertyValue('--content'), styles.getPropertyValue('--image')]
-        if (!!content && !!image) {
-            elem.append(`<img src=${image}></img>`)
-            elem.append(content)
-        } else {
-            console.warn("Invalid type list elem: ", elemDom, content, image)
-        }
+    const generateImages = (listClass) => {
+        for (const elemDom of $(`.${listClass} > *`)) {
+            const elem = $(elemDom)
+            const styles = getComputedStyle(elemDom)
+            const [content, image] = [styles.getPropertyValue('--content'), styles.getPropertyValue('--image')]
+            if (!!image) {
+                elem.append(`<img src=${image}></img>`)
+            } else {
+                console.warn("Invalid type list elem: ", elemDom, content, image)
+            }
+            if (!!content && content !== '') {
+                elem.append(content)
+            }
+        }    
     }
+
+    generateImages('type_list')
+    generateImages('socials_list')
 
     // Back = close current card, for mobile
     window.addEventListener('popstate', (event) => {
@@ -102,44 +124,48 @@ window.addEventListener('load', () => {
     history.pushState({ state: 1 }, '')
 
 
-    // Do the fun rotation effect cause why not
+    // Auto load counts and statistics
 
-    /*
-    for (const elemDom of $(".project_list > div")) {
-        const elem = $(elemDom)
-        let inside = false
-        let rect = elemDom.getBoundingClientRect()
-
-        const mouseInside = e => {
-            return rectContains(rect, e.clientX, e.clientY)
+    const applyStatistic = (classname, url, jsonPath, customJSONParse = undefined) => {
+        for (const elemDom of $(`.${classname}`)) {
+            const elem = $(elemDom)
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(data => data.json())
+                .then(json => {
+                    if (!!customJSONParse) {
+                        json = customJSONParse(json)
+                    } else {
+                        while (!!jsonPath && !!json) {
+                            const divIndex = jsonPath.indexOf('/')
+                            let splitted = jsonPath
+                            if (divIndex != -1) {
+                                splitted = jsonPath.substring(divIndex)
+                            } else {
+                                jsonPath = undefined
+                            }
+                            json = json[splitted]
+                        }    
+                    }
+                    if (!!json) {
+                        elem.text(json)
+                    }
+                })
         }
-        const doHoverEffect = e => {
-            const dx = clamp1(2 * (((e.clientX - rect.left) / rect.width) - 0.5))
-            const dy = clamp1(2 * (((e.clientY - rect.top) / rect.height) - 0.5))
-            const maxAngle = 4
-            const sideMaxAngle = 2
-
-            const sideStrength = -1 * dx * dy//Math.abs(dy);
-            //elem.css("transform", "rotate3d(1, 1, 1, 45deg)")
-            //console.log(`rotate3d(${Math.sign(dx)}, ${Math.sign(dy)}, 1, ${strength * 15}deg})`)
-            //elem.css("transform", `rotateZ(${sideStrength * sideMaxAngle}deg) rotateY(${(-dx) * maxAngle}deg) rotateX(${(- dy) * maxAngle}deg)`)    
-        }
-        const onExit = () => {
-            if (!inside)
-                return
-            inside = false
-            elem.off("mousemove", doHoverEffect)
-            elem.css("transform", `rotateZ(0deg) rotateY(0deg) rotateX(0deg)`)
-        }
-        elem.on("mouseenter", () => {
-            if (inside)
-                return
-            inside = true
-            elem.on("mousemove", doHoverEffect)
-        })
-        elem.on("mouseleave", e => {
-            onExit()
-        })
     }
-    */
+
+    // Misc site statistics
+    applyStatistic("altoclef_discord_count", "https://discord.com/api/v9/invites/JdFP4Kqdqc?with_counts=true&with_expiration=true", "approximate_member_count")
+    applyStatistic("altoclef_star_count", "https://api.github.com/repos/gaucho-matrero/altoclef", "stargazers_count")
+    applyStatistic("custombeatmaps_members_count", "https://discord.com/api/v9/invites/XzqMhRMmhC?with_counts=true&with_expiration=true", "approximate_member_count")
+    applyStatistic("custombeatmaps_beatmap_count", "http://64.225.60.116:8080/packages.json", "", (json) => {
+        if ('packages' in json) {
+            return Object.keys(json['packages']).length
+        }
+        return undefined
+    })
 })
