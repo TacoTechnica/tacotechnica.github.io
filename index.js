@@ -101,7 +101,8 @@ window.addEventListener('load', () => {
             const styles = getComputedStyle(elemDom)
             const [content, image] = [styles.getPropertyValue('--content'), styles.getPropertyValue('--image')]
             if (!!image) {
-                elem.append(`<img src=${image}></img>`)
+                const alt = elem.attr('alt')
+                elem.append(`<img src=${image} ${ alt ? `alt="${elem.attr('alt')}"` : ""}></img>`)
             } else {
                 console.warn("Invalid type list elem: ", elemDom, content, image)
             }
