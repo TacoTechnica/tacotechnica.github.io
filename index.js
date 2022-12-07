@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
         selectedCard = null
     }
 
-    for (const elemDom of $(".project_list > div")) {
+    for (const elemDom of $(".project_list > *")) {
         const elem = $(elemDom)
         elem.on('click', () => {
             if (selectedCard == elemDom)
@@ -63,6 +63,7 @@ window.addEventListener('load', () => {
             }
         })
 
+        /*
         // Make "tab+enter" selectable
         elem.on('keypress', (e) => {
             // enter
@@ -71,6 +72,7 @@ window.addEventListener('load', () => {
               elem.addClass('selected')
             }
         })
+        */
     }
     document.addEventListener('click', evt => {
         if (!selectedCard) {

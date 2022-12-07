@@ -14,11 +14,13 @@ html {
 body {
     /* TODO: Default font */
     /* TODO: No margin/tag/none of that */
-    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     color: #ecedec;
     overflow-x: hidden;
+}
+* {
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* We will only use headers for accessability */
@@ -85,7 +87,7 @@ video {
 
 /* Box "Hover" idea */
 
-.hover-box, .project_list > div {
+.hover-box, .project_list > * {
     border-radius: 1em;
     border-bottom: 0px solid #ecedec00;
     box-shadow: 0px 0px 0px black;
@@ -97,7 +99,7 @@ video {
     z-index: 0;
 }
 
-.hover-box::before, .project_list > div::before {
+.hover-box::before, .project_list > *::before {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
@@ -112,11 +114,11 @@ video {
     opacity: 0;
     transition: opacity 100ms ease-out;
 }
-.hover-box:hover::before, .project_list > div:hover::before {
+.hover-box:hover::before, .project_list > *:hover::before {
     opacity: 1;
 }
 
-.hover-box::after, .project_list > div::after {
+.hover-box::after, .project_list > *::after {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
@@ -130,24 +132,41 @@ video {
 }
 
 
-.hover-box:active, .project_list > div:active {
+.hover-box:active, .project_list > *:active {
     animation-play-state: running;
     z-index: 100;
 }
-.hover-box:active, .project_list > div:active  {
+.hover-box:active, .project_list > *:active  {
     animation-play-state: running;
 }
-.hover-box:active::before, .project_list > div:active::before {
+.hover-box:active::before, .project_list > *:active::before {
     animation-play-state: running;
 }
-.hover-box:active::before, .project_list > div:active::before {
+.hover-box:active::before, .project_list > *:active::before {
     animation-play-state: running;
 }
-.hover-box:active::after, .project_list > div:active::after {
+.hover-box:active::after, .project_list > *:active::after {
     animation-play-state: running;
 }
-.hover-box:active::after, .project_list > div:active::after {
+.hover-box:active::after, .project_list > *:active::after {
     animation-play-state: running;
+}
+
+.project_list > * {
+    /* Make them NOT buttons */
+    background-color: unset;
+    border: unset;
+
+    text-align: unset;
+    font-size: unset;
+    color:unset;
+
+    -webkit-touch-callout: text;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 @keyframes box_open {
@@ -254,7 +273,7 @@ video {
     flex-wrap: wrap;
     height:100vh;
 }
-.project_list > div {
+.project_list > * {
     padding : 2em;
     padding-bottom: 1em;
     max-width: calc(24em);
@@ -265,38 +284,41 @@ video {
 
     transition: all 100ms ease-in-out;
 }
-.project_list > div.right-align {
+.project_list > *.right-align {
     
 }
-.project_list > div > .header {
+.project_list > * > .header {
     font-size: 2em;
+    width: 100%;
 }
-.project_list > div > .header::after {
+.project_list > * > .header::after {
     content: '';
     height: 0.2em;
     width:100%;
     display:block;
-    margin-top: -0.2em;
+    /*! margin-top: -0.2em; */
     margin-bottom: 0.4em;
     border-bottom: 2px solid gray;
+    margin-bottom: 0.5em;
 }
-.project_list > div > .description > div {
+.project_list > * > .description > div {
     margin-bottom: 1em;
     background-color: inherit;
 }
 
-.project_list > div > .description {
+.project_list > * > .description {
     display: none;
     flex: 1;
     overflow-y: auto;
     /*! min-height: 50%; */
     height: 50%;
+    padding: 1em;
 }
-.project_list > div.selected > .description {
+.project_list > *.selected > .description {
     display: block;
 }
 
-.project_list > div.selected {
+.project_list > *.selected {
     /* This div is SELECTED/hovering over everything else */    
     cursor: unset;
     position: fixed;
@@ -307,13 +329,13 @@ video {
     margin:auto;
     max-width:50em;
 }
-.project_list > div.selected > .media_note {
+.project_list > *.selected > .media_note {
     width:100%;
     display: flex;
     justify-content: center;
     /*! max-height: 35vh; */
 }
-.project_list > div.selected > .media_note > * {
+.project_list > *.selected > .media_note > * {
     height:auto;
     width:auto;
     /*! height: 50%; */
@@ -337,6 +359,7 @@ video {
     text-align: center;
     font-style: italic;
     opacity: 90%;
+    padding-top: 0.5em;
     padding-bottom: 2em;
 }
 
@@ -441,7 +464,7 @@ video {
     --image: './res/reddit-svgrepo-com.svg';
 }
 
-.project_list > div:active .type_list > * {
+.project_list > *:active .type_list > * {
     animation-play-state: running;
 }
 @keyframes box_open_type {
