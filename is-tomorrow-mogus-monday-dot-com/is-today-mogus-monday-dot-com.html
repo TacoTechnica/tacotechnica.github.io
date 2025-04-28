@@ -1,0 +1,81 @@
+<!doctype HTML>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        .root {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sansation-light {
+            font-family: "Sansation", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+            font-size: 8em;
+            }
+
+            .sansation-regular {
+            font-family: "Sansation", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            }
+
+            .sansation-bold {
+            font-family: "Sansation", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            }
+
+            .sansation-light-italic {
+            font-family: "Sansation", sans-serif;
+            font-weight: 300;
+            font-style: italic;
+            }
+
+            .sansation-regular-italic {
+            font-family: "Sansation", sans-serif;
+            font-weight: 400;
+            font-style: italic;
+            }
+
+            .sansation-bold-italic {
+            font-family: "Sansation", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+            }
+    </style>
+</head>
+<title> Is Today Mogus Monday.com </title>
+<body>
+    <div class="root">
+        <div id="text" class="sansation-light"></div>
+    </div>
+    <script>
+
+        const play = (audioFileName) => {
+            let audio = new Audio(audioFileName);
+            audio.play();
+        }
+
+        const t = document.getElementById("text");
+
+        const day = new Date().toLocaleString('en-us', {  weekday: 'long' });
+        if (day === 'Monday') {
+            t.innerText = "Today Is Mogus Monday!";
+            play('today.mp3');
+        } else if (day === 'Sunday') {
+            t.innerText = "Tomorrow Is Mogus Monday!";
+            play('tomorrow.mp3');
+        } else {
+            t.innerText = "Today Is NOT Mogus Monday";
+            play('not.mp3');
+        }
+\       
+    </script>
+</body>
+</html>
